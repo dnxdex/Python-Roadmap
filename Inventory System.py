@@ -13,7 +13,7 @@ inventory_list = [
 
 
 def add_item(item_list_index, quantity):
-    player_inventory.append({"name": inventory_list[item_list_index], "quantity": quantity})
+    player_inventory.append({"name":inventory_list[item_list_index]["name"], "quantity": quantity})
 
 
 def remove_item():
@@ -23,7 +23,7 @@ def remove_item():
 def view_items():
     items = ""
     for i in range(0, len(player_inventory)):
-        items += f"{player_inventory[i]["name"]}:{player_inventory[i][quantity]}, \n"
+        items += f"{player_inventory[i]["name"]}: {player_inventory[i]["quantity"]}, \n"
     print(items)
 
 def list_items():
