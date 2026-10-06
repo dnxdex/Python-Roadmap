@@ -16,13 +16,16 @@ def add_item(item_list_index, quantity):
     player_inventory.append({"name":inventory_list[item_list_index]["name"], "quantity": quantity})
 
 
-def remove_item():
-    pass
+def remove_item(item_index):
+   for item in player_inventory:
+       if item["name"] == inventory_list[item_index]["name"]:
+           player_inventory.remove(item)
+   save_player_file()
 
 
 def view_items():
     items = ""
-    if player_inventory.count == 0:
+    if len(player_inventory) == 0:
         print("Inventory is empty")
     else:
         for i in range(0, len(player_inventory)):
@@ -43,6 +46,7 @@ def search_item(item_list_index):
 
 
 def load_inventory(player_inventory):
+    player_inventory.clear()
     with open("inventory.json", "r") as inventory_file:
         player_inventory += json.load(inventory_file)
         return player_inventory
@@ -66,11 +70,13 @@ while True:
     choice = int(input("Enter your choice: "))
     if choice == 1:
         list_items()
-        item_index = int(input())
+        item_index = int(input("Enter item index: "))
         quantity = int(input("Enter quantity: "))
         add_item(item_index, quantity)
     elif choice == 2:
-        remove_item()
+        list_items()
+        item_index = int(input("Enter item index: "))
+        remove_item(item_index)
     elif choice == 3:
         view_items()
     elif choice == 4:
